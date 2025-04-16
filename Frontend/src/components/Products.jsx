@@ -1,9 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-const Products = () => (
+import SearchBar from '../site-asset/SearchBar';
+const Products = () =>{ 
+   const handleSearch = (searchTerm) => {
+    // Implement search functionality here
+    console.log("Searching for:", searchTerm);
+   }
+  return(
   <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-purple-900 text-white py-16 px-6">
     <div className="max-w-7xl mx-auto">
       <div className="text-center mb-12">
+      <SearchBar onSearch={handleSearch} />
+        <br />
         <h1 className="text-5xl font-extrabold bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent drop-shadow-lg">
           Our Products
         </h1>
@@ -39,6 +47,6 @@ const Products = () => (
       </div>
     </div>
   </div>
-);
+)};
 
 export default Products;
