@@ -1,6 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-const Cart = () => (
+import SearchBar from '../site-asset/SearchBar';
+const Cart = () => {
+  const handleSearch = (searchTerm) => {
+    // Implement search functionality here
+    console.log("Searching for:", searchTerm);
+  }
+  
+  return(
   <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-purple-900 text-white py-16 px-6">
     <div className="max-w-4xl mx-auto">
       <h1 className="text-5xl font-extrabold text-center mb-6 bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
@@ -9,7 +16,9 @@ const Cart = () => (
       <p className="text-center text-gray-300 mb-10 text-lg">
         Review and manage your selected items with ease and elegance.
       </p>
-
+    <SearchBar onSearch={handleSearch}/>
+    <br />
+    <br />
       {/* Placeholder cart item */}
       <div className="bg-white/10 backdrop-blur-lg border border-white/10 rounded-xl p-6 mb-6 shadow-lg flex flex-col md:flex-row items-center justify-between gap-4 hover:scale-[1.01] transition-all">
         <div>
@@ -40,6 +49,6 @@ const Cart = () => (
       </div>
     </div>
   </div>
-);
+)};
 
 export default Cart;
