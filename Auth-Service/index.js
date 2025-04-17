@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser';
 import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
 import authRoute from './routes/auth.js';
-
+import emailVerificationRoute from './ProtectedRoute/Emailverification.js';
 const app = express();
 app.use(cookieParser())
 app.use(bodyParser.json());
@@ -19,6 +19,7 @@ dotenv.config();
 const PORT = process.env.PORT || 5000;
 
 app.use('/api/auth',authRoute)
+app.use('/api/auth',emailVerificationRoute)
 app.listen(PORT, () => {
     mongoose.connect(process.env.MONGO_URL)
     .then(() => console.log('MongoDB connected'))

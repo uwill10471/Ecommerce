@@ -6,20 +6,37 @@ import User from '../models/user.js'
 const router = express.Router();
 
 // User registration
+// User registration
 router.post('/register', async (req, res) => {
   try {
     const { username, password } = req.body;
+
+    // Check if user already exists (optional but good practice)
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+      return res.status(400).json({ error: 'Username already taken' });
+    }
 
     const hashedPassword = await argon2.hash(password);
     const user = new User({ username, password: hashedPassword });
 
     await user.save();
-    res.status(201).json({ message: 'User registered successfully' });
+
+    // 🔐 Generate JWT token
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: '1h',
+    });
+
+    res.status(201).json({
+      message: 'User registered successfully',
+      token,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Registration failed' });
   }
 });
+
 
 // User login
 router.post('/login', async (req, res) => {
